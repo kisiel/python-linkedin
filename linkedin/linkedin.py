@@ -337,6 +337,13 @@ class LinkedInApplication(object):
         raise_for_error(response)
         return response.json()
 
+    def get_company_statistics(self, company_id, params=None, headers=None):
+        url = '%s/%s/company-statistics' % (ENDPOINTS.COMPANIES, company_id)
+
+        response = self.make_request('GET', url, params=params, headers=headers)
+        raise_for_error(response)
+        return response.json()
+
     def get_companies(self, company_ids=None, universal_names=None, selectors=None,
                       params=None, headers=None):
         identifiers = []
@@ -411,8 +418,8 @@ class LinkedInApplication(object):
                 'submitted-url': submitted_url,
                 'description': description,
             }
-        if submitted_image_url:
-            post['content']['submitted-image-url'] = submitted_image_url
+            if submitted_image_url:
+                post['content']['submitted-image-url'] = submitted_image_url
 
         url = '%s/%s/shares' % (ENDPOINTS.COMPANIES, company_id)
 
@@ -461,8 +468,8 @@ class LinkedInApplication(object):
                 'submitted-url': submitted_url,
                 'description': description,
             }
-        if submitted_image_url:
-            post['content']['submitted-image-url'] = submitted_image_url
+            if submitted_image_url:
+                post['content']['submitted-image-url'] = submitted_image_url
 
         url = '%s/~/shares' % ENDPOINTS.PEOPLE
         response = self.make_request('POST', url, data=json.dumps(post))
